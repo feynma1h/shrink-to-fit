@@ -1,0 +1,14 @@
+# local Python environment
+venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# personal test files — never commit photos/documents
+IMG_*
+test_files/
+*_compressed.jpg
+*_compressed.jpeg
+*_compressed.pdf

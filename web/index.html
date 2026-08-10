@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Image & PDF Compressor — exact size, 100% private</title>
+  <meta name="description" content="Compress images and PDFs to an exact file-size limit, entirely in your browser. No uploads, no tracking." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%9C%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Image &amp; PDF Compressor</h1>
+      <p class="tagline">Hit an exact file-size limit — entirely in your browser.</p>
+      <ul class="badges" aria-label="Privacy properties">
+        <li>Files never leave your device</li>
+        <li>No analytics, no cookies</li>
+        <li>EXIF &amp; GPS metadata stripped</li>
+        <li><a href="https://github.com/feynma1h/shrink-to-fit">Open source</a></li>
+      </ul>
+    </header>
+
+    <section class="controls" aria-label="Target size">
+      <label for="target-value">Target size</label>
+      <input id="target-value" type="number" min="1" step="any" value="500" required inputmode="decimal" />
+      <select id="target-unit" aria-label="Unit">
+        <option value="KB" selected>KB</option>
+        <option value="MB">MB</option>
+      </select>
+      <span class="hint">e.g. an upload form's “max 500&nbsp;KB” cap</span>
+    </section>
+
+    <div id="dropzone" role="button" tabindex="0" aria-label="Choose or drop files to compress">
+      <strong>Drop images or PDFs here</strong>
+      <span>or click to choose files</span>
+    </div>
+    <input id="file-input" type="file" hidden multiple accept="image/*,.pdf,application/pdf" />
+
+    <button id="download-all" class="btn" hidden>Download all</button>
+    <ul id="results" aria-live="polite"></ul>
+
+    <details class="how">
+      <summary>How it works &amp; limitations</summary>
+      <ul>
+        <li><strong>Images</strong> are re-encoded as JPEG. A binary search over quality levels (20–95) finds the highest quality that fits your target; if that's not enough, dimensions are scaled down too. Transparency is flattened to white, and metadata (EXIF, GPS location) is stripped.</li>
+        <li><strong>PDFs</strong> are compressed with Ghostscript (compiled to WebAssembly, running locally): images inside the PDF are downsampled step by step while <em>text and vector content stay intact</em>. Only if even the lowest settings can't reach your target are pages re-rendered as compressed images (via Mozilla's pdf.js) — effective for stubborn scans, but text stops being selectable, and the result card tells you when that happened. Password-protected PDFs aren't supported.</li>
+        <li><strong>Privacy</strong>: compression runs in your browser. The only network traffic is loading this page's own files — your images and PDFs are never uploaded anywhere. Once everything has loaded (the PDF engines load on first use), it even works offline.</li>
+      </ul>
+    </details>
+  </main>
+
+  <footer>
+    <p>Built because online compressors shouldn't see your files. <a href="https://github.com/feynma1h/shrink-to-fit">Source on GitHub</a> · MIT licensed</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
