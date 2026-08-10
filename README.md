@@ -1,4 +1,4 @@
-# Image & PDF Compressor
+# Shrink to Fit
 
 **Compress images and PDFs to an exact file-size limit — entirely in your browser.**
 

@@ -129,7 +129,7 @@ async function renderAtDpi(doc, dpi, qualities, report) {
 async function assemblePdf(pages, qi) {
   const { PDFDocument } = await loadPdfLib();
   const out = await PDFDocument.create();
-  out.setProducer("Image & PDF Compressor (client-side)");
+  out.setProducer("Shrink to Fit (client-side)");
   for (const p of pages) {
     const jpg = await out.embedJpg(new Uint8Array(await p.byQuality[qi].arrayBuffer()));
     const page = out.addPage([p.widthPt, p.heightPt]);

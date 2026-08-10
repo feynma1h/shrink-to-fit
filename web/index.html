@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Image & PDF Compressor — exact size, 100% private</title>
-  <meta name="description" content="Compress images and PDFs to an exact file-size limit, entirely in your browser. No uploads, no tracking." />
+  <title>Shrink to Fit — compress images & PDFs to an exact size, in your browser</title>
+  <meta name="description" content="Shrink images and PDFs to fit an exact file-size cap — 100% in your browser. No uploads, no tracking." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%9C%EF%B8%8F%3C/text%3E%3C/svg%3E" />
 </head>
 <body>
   <main>
     <header>
-      <h1>Image &amp; PDF Compressor</h1>
-      <p class="tagline">Hit an exact file-size limit — entirely in your browser.</p>
+      <h1>Shrink to Fit</h1>
+      <p class="tagline">Compress images &amp; PDFs to hit an exact file-size limit — entirely in your browser.</p>
       <ul class="badges" aria-label="Privacy properties">
         <li>Files never leave your device</li>
         <li>No analytics, no cookies</li>
@@ -31,13 +31,14 @@
       <span class="hint">e.g. an upload form's “max 500&nbsp;KB” cap</span>
     </section>
 
-    <div id="dropzone" role="button" tabindex="0" aria-label="Choose or drop files to compress">
+    <div id="dropzone" role="button" tabindex="0" aria-label="Choose or drop files to shrink">
       <strong>Drop images or PDFs here</strong>
-      <span>or click to choose files</span>
+      <span>or click to choose files — nothing starts until you press Shrink</span>
     </div>
     <input id="file-input" type="file" hidden multiple accept="image/*,.pdf,application/pdf" />
 
-    <button id="download-all" class="btn" hidden>Download all</button>
+    <button id="shrink-btn" class="btn" type="button" hidden>Shrink</button>
+    <button id="download-all" class="btn" type="button" hidden>Download all</button>
     <ul id="results" aria-live="polite"></ul>
 
     <details class="how">
