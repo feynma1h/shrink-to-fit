@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shrink to Fit — Open Graph card source (1200×630)</title>
+<!-- Self-contained: no external fonts, no CDNs, no network requests. -->
+<style>
+  @font-face { font-family: "STF Sans"; src: local("Inter"), local("Inter Regular"), local("SF Pro Text"), local("Helvetica Neue"); font-weight: 400; }
+  @font-face { font-family: "STF Sans"; src: local("Inter SemiBold"), local("Inter Semi Bold"), local("SF Pro Text Semibold"), local("Helvetica Neue Medium"); font-weight: 600; }
+
+  :root {
+    --bg: #F6F7F9;
+    --surface: #FFFFFF;
+    --text: #1A1F26;
+    --muted: #5C6570;
+    --accent: #2563EB;
+    --border: #D8DDE3;
+    --ok: #15803D;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px;
+    background: #ECEEF1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+    font-family: "STF Sans", Inter, -apple-system, "SF Pro Text", system-ui, "Segoe UI", Roboto, sans-serif;
+  }
+
+  /* ---- The artboard. Exactly 1200 × 630. ---- */
+  .og {
+    width: 1200px;
+    height: 630px;
+    box-sizing: border-box;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 64px 68px;              /* ≈ 60px platform-crop safe margin */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--text);
+  }
+
+  .og--dark {
+    --bg: #0F1319;
+    --surface: #171D26;
+    --text: #E8ECF1;
+    --muted: #9AA4B1;
+    --accent: #60A5FA;
+    --border: #2A323D;
+    --ok: #4ADE80;
+  }
+
+  .lockup { display: flex; align-items: center; gap: 56px; }
+  .lockup__text { display: flex; flex-direction: column; gap: 22px; }
+
+  .name {
+    font-size: 76px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .tagline {
+    font-size: 30px;
+    line-height: 1.4;
+    color: var(--muted);
+    max-width: 560px;
+    text-wrap: pretty;
+  }
+
+  .foot { display: flex; flex-direction: column; gap: 26px; }
+  .rule { border-top: 1px solid var(--border); }
+  .foot__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    font-size: 20px;
+    color: var(--muted);
+  }
+
+  /* Logo mark: the 16×16 source from web/index.html, scaled only.
+     The blue block is flush with the brackets' inner edges — do not pad, round or redraw. */
+  .mark rect { fill: var(--accent); }
+  .mark path { fill: none; stroke: var(--text); stroke-width: 1.8; }
+
+  .label { font: 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: #5C6570; letter-spacing: 0.08em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<div class="label">og.png — light (primary)</div>
+<div class="og" id="og-light">
+  <div class="lockup">
+    <svg class="mark" viewBox="0 0 16 16" width="224" height="224" aria-hidden="true">
+      <rect x="4.9" y="5.3" width="6.2" height="5.4"></rect>
+      <path d="M6.3 3.6 H4 V12.4 H6.3 M9.7 3.6 H12 V12.4 H9.7"></path>
+    </svg>
+    <div class="lockup__text">
+      <div class="name">Shrink to Fit</div>
+      <div class="tagline">Hit an exact file-size limit. Entirely in your browser.</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="rule"></div>
+    <div class="foot__row">
+      <span>Files never leave your device · No analytics, no cookies · Open source</span>
+      <span>feynma1h.github.io/shrink-to-fit</span>
+    </div>
+  </div>
+</div>
+
+<div class="label">og-dark.png — dark palette (optional second artboard)</div>
+<div class="og og--dark" id="og-dark">
+  <div class="lockup">
+    <svg class="mark" viewBox="0 0 16 16" width="224" height="224" aria-hidden="true">
+      <rect x="4.9" y="5.3" width="6.2" height="5.4"></rect>
+      <path d="M6.3 3.6 H4 V12.4 H6.3 M9.7 3.6 H12 V12.4 H9.7"></path>
+    </svg>
+    <div class="lockup__text">
+      <div class="name">Shrink to Fit</div>
+      <div class="tagline">Hit an exact file-size limit. Entirely in your browser.</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="rule"></div>
+    <div class="foot__row">
+      <span>Files never leave your device · No analytics, no cookies · Open source</span>
+      <span>feynma1h.github.io/shrink-to-fit</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
