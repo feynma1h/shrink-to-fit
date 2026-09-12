@@ -78,7 +78,7 @@ fallback at 150 → 72 DPI), stopping at the first rung that fits.
 ```
 web/    the site GitHub Pages serves — app code in web/js/, offline deps in web/vendor/
 cli/    the Python CLI and its tests
-design/ source artboard for the social card (not served)
+design/ the social card's source and 2x render, and the project thumbnail (not served)
 .github/workflows/   Pages deploy + CI (CLI tests)
 ```
 
