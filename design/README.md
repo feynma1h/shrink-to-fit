@@ -1,4 +1,4 @@
-# Handoff: Open Graph / social card — Shrink to Fit
+# Shrink to Fit social card
 
 ## Overview
 A single 1200 × 630 Open Graph / social preview card for `shrink-to-fit`, to ship in the repo and
@@ -10,30 +10,23 @@ product name, one line of copy, a hairline, and a muted footer. Deliberately gen
 filenames, no before/after byte counts, no target value**, so the card never goes stale and never
 implies a specific result.
 
-## About the design files
+## The source artboard
 `og-card.html` in this folder is the **editable source artboard** — a self-contained HTML file with
 two 1200 × 630 artboards (light, dark). It is not application code and nothing in it needs to be
 ported into a framework. Its only job is to be re-opened and re-exported when copy changes.
 
-There are two reasonable ways to treat it:
+Only the PNG ships. The page's meta tags point at `web/og.png`, and this folder is never served.
+`regenerate.mjs` writes fresh exports next to itself; check a new `og.png` against the committed
+one before copying it over `web/og.png`. The card changes rarely, so nothing regenerates it in CI.
 
-1. **Ship the PNGs only** (recommended). Commit `og.png` (+ optionally `og@2x.png`) and reference
-   it from the page's meta tags. Keep `og-card.html` in the repo as `design/og-card.html` — source
-   of truth for regeneration, never served.
-2. **Regenerate in CI**, if you want copy changes to propagate automatically: headless-Chrome
-   screenshot of `#og-light` at a 1200 × 630 device size. Not required; the card changes rarely.
-
-## Fidelity
-**High-fidelity.** Colors, type sizes, weights, tracking, geometry, and copy are final. Every value
-comes from `web/styles.css` verbatim. Reproduce exactly; do not substitute a design system.
-
-## Files in this bundle
+## Files
 | File | What it is |
 | --- | --- |
 | `og-card.html` | Editable source. Two artboards: `#og-light`, `#og-dark`. No external refs. |
-| `og.png` | 1200 × 630, light palette. **The primary deliverable.** 57.4 KB. |
-| `og@2x.png` | 2400 × 1260, light palette. Optional. |
-| `og-dark.png` | 1200 × 630, dark palette. Optional alternate for comparison. |
+| `regenerate.mjs` | Re-exports `og.png`, `og@2x.png` and `og-dark.png` from the artboards. |
+| `og@2x.png` | 2400 × 1260, light palette. Not linked from the page. |
+| `thumbnail.png` | 4:3 project thumbnail, 1200 × 900. Not linked from the page. |
+| `../web/og.png` | 1200 × 630, light palette. **The card the page links.** 51.8 KB. |
 
 ## The artboard
 
@@ -133,22 +126,22 @@ Spacing used: 64/68 padding, 56 lockup gap, 26 footer gap, 22 text-column gap.
 **Ship light as the primary** (`og.png`). The favicon is a data-URI SVG with the light literals
 (`#2563EB` / `#1A1F26`) baked in, so a light card keeps the tab icon and the social card reading as
 one product; and social cards sit on both light and dark chrome, so a light ground with a real
-border holds up better than a dark one bleeding into a dark Slack theme. `og-dark.png` exists only
-for comparison — if it is ever adopted, adopt it wholly. Never split the difference with a
-mid-grey.
+border holds up better than a dark one bleeding into a dark Slack theme. `og-dark.png`, which
+`regenerate.mjs` writes but the repo does not keep, exists only for comparison. If it is ever
+adopted, adopt it wholly. Never split the difference with a mid-grey.
 
 ## Constraints to honor
-- **PNG well under ~500 KB.** `og.png` lands 57.4 KB; `og@2x.png` 136.9 KB; `og-dark.png` 57.7 KB. An oversized social card
+- **PNG well under ~500 KB.** `og.png` is 51.8 KB and `og@2x.png` 131.2 KB. An oversized social card
   on a page whose pitch is file size would be an own goal. If you re-export, check the size.
 - **No external font/CDN references** anywhere in the source. No analytics, no network calls.
 - **Legibility at ~360px wide** (Slack sidebar) — everything essential survives a 3× downscale;
   the 76px name and the mark are the load-bearing elements, the 20px footer is accepted-as-texture.
 
-## Wiring it up
+## How the page uses it
 
-The copy-paste block is also in `meta-tags.html`. `TASK.md` is the step-by-step version of
-everything below — start there.
-Add to `web/index.html` `<head>` (absolute URLs — several platforms will not resolve relative ones):
+`web/index.html` carries these tags, along with `og:site_name`, `og:image:type` and the Twitter
+title, description and image. The image URLs are absolute, because several platforms will not
+resolve relative ones:
 
 ```html
 <meta property="og:title" content="Shrink to Fit" />
@@ -162,11 +155,6 @@ Add to `web/index.html` `<head>` (absolute URLs — several platforms will not r
 <meta name="twitter:card" content="summary_large_image" />
 ```
 
-Commit `og.png` at the served root (next to `index.html`). Upload the same file under GitHub →
-repo Settings → Social preview. Note that Slack, Twitter, and LinkedIn cache aggressively — use
-each platform's card validator / cache-flush after changing the image, or ship it at a new filename.
-
-## Interactions, state, assets
-None. This is a static image plus its source artboard: no JS, no state, no data fetching, no
-responsive behavior, no hover/focus states. The only asset is the inline SVG mark, which comes from
-`web/index.html` in this repo — nothing is downloaded or third-party.
+`og.png` sits at the served root, next to `index.html`. The same file works as GitHub's repository
+social preview, uploaded by hand under Settings → Social preview. Slack, Twitter and LinkedIn cache
+aggressively: after changing the image, flush each platform's cache or ship it under a new filename.
